@@ -1,0 +1,26 @@
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
+import numpy as np
+import cv2
+img = cv2.imread('grant.jpg',1)
+chans = cv2.split(img)
+colors = ('b','g','r')
+fig = plt.figure()
+#plt.title('color histogram')
+ax = fig.add_subplot(131)
+hist = cv2.calcHist([chans[1],chans[0]],[0,1],None,[32,32],[0,256,0,256])
+p = ax.imshow(hist,interpolation = 'nearest')
+ax.set_title("2D Color Histogram for Green and Blue")
+plt.colorbar(p)
+ax = fig.add_subplot(132)
+hist = cv2.calcHist([chans[0],chans[2]],[0,1],None,[32,32],[0,256,0,256])
+p = ax.imshow(hist,interpolation = 'nearest')
+ax.set_title('2D Color Histogram for Green and Red')
+plt.colorbar(p)
+ax = fig.add_subplot(133)
+hist = cv2.calcHist([chans[1],chans[2]],[0,1],None,[32,32],[0,256,0,256])
+p = ax.imshow(hist,interpolation = 'nearest')
+ax.set_title('2D Histogram for Green and Red')
+plt.colorbar(p)
+plt.show()
